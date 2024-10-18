@@ -18,6 +18,7 @@ session = boto3.Session(
 s3 = session.resource("s3")
 dev_bucket = s3.Bucket("developer-task2")
 
+#Probably a for loop would be better here if you want to run multiple commands, but it wasn't specified
 if arguments.list:
     service.list_all_bucket_objects(dev_bucket)
 
