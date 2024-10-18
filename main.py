@@ -1,17 +1,22 @@
-import boto3
-import service
-import argument_parser
-from dotenv import load_dotenv
 import os
+
+import boto3
+from dotenv import load_dotenv
+
+import argument_parser
+import service
 
 arguments = argument_parser.python_Arg()
 
-#Load the environment variables for AWS credentials
+# Load the environment variables for AWS credentials
 load_dotenv()
 # Create a session using your AWS credentials and specify s3 instance
-session = boto3.Session(aws_access_key_id=os.getenv("AWS_ACCESS_KEY"), aws_secret_access_key=os.getenv("AWS_SECRET_KEY"))
-s3 = session.resource('s3')
-dev_bucket = s3.Bucket('developer-task2')
+session = boto3.Session(
+    aws_access_key_id=os.getenv("AWS_ACCESS_KEY"),
+    aws_secret_access_key=os.getenv("AWS_SECRET_KEY"),
+)
+s3 = session.resource("s3")
+dev_bucket = s3.Bucket("developer-task2")
 
 if arguments.list:
     service.list_all_bucket_objects(dev_bucket)
@@ -24,8 +29,3 @@ if arguments.filter:
 
 if arguments.delete:
     service.delete_file_from_bucket(dev_bucket, arguments.delete)
-    
-
-
-
-
